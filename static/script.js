@@ -156,7 +156,7 @@
       const timeout = setTimeout(() => controller.abort(), 10000);
     
       try {
-          const response = await fetch('http://127.0.0.1:8000/send-otp', {
+          const response = await fetch('/send-otp', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
@@ -204,7 +204,7 @@
         }
     
         try {
-            const response = await fetch('http://127.0.0.1:8000/verify-otp', {
+            const response = await fetch('/verify-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

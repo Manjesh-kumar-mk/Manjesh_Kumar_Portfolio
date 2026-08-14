@@ -1,3 +1,4 @@
+from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
@@ -6,10 +7,18 @@ import aiosmtplib
 import random
 from dotenv import load_dotenv
 import os
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/")
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 app.add_middleware(
     CORSMiddleware,
