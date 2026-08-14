@@ -61,15 +61,17 @@ async def send_email(to_email: str, subject: str, body: str):
     email["Subject"] = subject
     email.set_content(body)
 
-    await aiosmtplib.send(
-        email,
+    smtp = aiosmtplib.SMTP(
         hostname="smtp.gmail.com",
-        port=587,
-        start_tls=True,
-        username=GMAIL_USER,
-        password=GMAIL_PASS,
-        timeout=10,
+        port=465,
+        use_tls=True,
+        timeout=15
     )
+
+    await smtp.connect()
+    await smtp.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASS"))
+    print("SMTP connected successfully")
+    await smtp.quit()
 
 @app.post("/send-otp")
 async def send_otp(data: ContactRequest):
