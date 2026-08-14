@@ -1,7 +1,6 @@
 fastapi
 uvicorn
 jinja2
-aiosmtplib
 python-dotenv
 email-validator
-pydantic
+httpx

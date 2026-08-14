@@ -3,12 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, EmailStr
-from email.message import EmailMessage
-import aiosmtplib
-import random
 from dotenv import load_dotenv
+import httpx
+import random
 import os
+import time
 
+# Load environment variables
 load_dotenv()
 
 app = FastAPI()
@@ -19,9 +20,9 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 async def home(request: Request):
-    return templates.TemplateResponse(request, "index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
 
-# CORS (safe for local development)
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -35,84 +36,118 @@ app.add_middleware(
 )
 
 # Environment variables
-GMAIL_USER = os.getenv("GMAIL_USER")
-GMAIL_PASS = os.getenv("GMAIL_PASS")
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+MY_EMAIL = os.getenv("MY_EMAIL")  # Your email where portfolio messages will arrive
 
-if not GMAIL_USER or not GMAIL_PASS:
-    raise RuntimeError("GMAIL_USER and GMAIL_PASS environment variables are not set")
+if not RESEND_API_KEY or not MY_EMAIL:
+    raise RuntimeError("RESEND_API_KEY and MY_EMAIL environment variables are not set")
 
+# In-memory stores
 otp_store = {}
 message_store = {}
 
+# OTP validity (5 minutes)
+OTP_EXPIRY_SECONDS = 300
+
+
+# Request models
 class ContactRequest(BaseModel):
     name: str
     email: EmailStr
     message: str
 
+
 class OTPRequest(BaseModel):
     email: EmailStr
     otp: str
 
-# Send email
+
+# Send email using Resend API
 async def send_email(to_email: str, subject: str, body: str):
-    email = EmailMessage()
-    email["From"] = GMAIL_USER
-    email["To"] = to_email
-    email["Subject"] = subject
-    email.set_content(body)
+    async with httpx.AsyncClient(timeout=15) as client:
+        response = await client.post(
+            "https://api.resend.com/emails",
+            headers={
+                "Authorization": f"Bearer {RESEND_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "from": "onboarding@resend.dev",
+                "to": [to_email],
+                "subject": subject,
+                "text": body,
+            },
+        )
 
-    smtp = aiosmtplib.SMTP(
-        hostname="smtp.gmail.com",
-        port=465,
-        use_tls=True,
-        timeout=15
-    )
+    if response.status_code not in [200, 201]:
+        raise Exception(f"Resend API error: {response.text}")
 
-    await smtp.connect()
-    await smtp.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASS"))
-    print("SMTP connected successfully")
-    await smtp.quit()
 
+# Send OTP
 @app.post("/send-otp")
 async def send_otp(data: ContactRequest):
     try:
-        if not data.email.lower().endswith("@gmail.com"):
-            raise HTTPException(
-                status_code=400,
-                detail="Please enter a valid Gmail address ending with @gmail.com",
-            )
-
         otp = str(random.randint(100000, 999999))
-        otp_store[data.email] = otp
+
+        otp_store[data.email] = {
+            "otp": otp,
+            "created_at": time.time(),
+        }
+
         message_store[data.email] = data
 
         await send_email(
             data.email,
             "Your Portfolio OTP",
-            f"Your OTP is: {otp}",
+            f"""
+Hello {data.name},
+
+Your OTP for portfolio contact verification is:
+
+{otp}
+
+This OTP is valid for 5 minutes.
+
+Thank you,
+Manjesh Kumar
+""",
         )
 
         return {"message": "OTP sent successfully"}
 
     except Exception as e:
-        print("SMTP ERROR:", repr(e))
+        print("SEND OTP ERROR:", repr(e))
         raise HTTPException(status_code=500, detail=str(e))
 
+
+# Verify OTP and send contact message
 @app.post("/verify-otp")
 async def verify_otp(data: OTPRequest):
     try:
         if data.email not in otp_store:
             raise HTTPException(status_code=400, detail="OTP not found")
 
-        if otp_store[data.email] != data.otp:
+        stored = otp_store[data.email]
+
+        # Check OTP expiry
+        if time.time() - stored["created_at"] > OTP_EXPIRY_SECONDS:
+            del otp_store[data.email]
+            del message_store[data.email]
+            raise HTTPException(status_code=400, detail="OTP has expired")
+
+        # Check OTP
+        if stored["otp"] != data.otp:
             raise HTTPException(status_code=400, detail="Invalid OTP")
 
         original = message_store[data.email]
 
+        # Send contact message to your email
         await send_email(
-            GMAIL_USER,
+            MY_EMAIL,
             f"Portfolio Contact from {original.name}",
             f"""
+New Portfolio Contact Message
+
 Name: {original.name}
 Email: {original.email}
 
@@ -121,11 +156,14 @@ Message:
 """,
         )
 
+        # Clean up
         del otp_store[data.email]
         del message_store[data.email]
 
         return {"message": "Message verified and sent successfully"}
 
+    except HTTPException:
+        raise
     except Exception as e:
         print("VERIFY ERROR:", repr(e))
         raise HTTPException(status_code=500, detail=str(e))
