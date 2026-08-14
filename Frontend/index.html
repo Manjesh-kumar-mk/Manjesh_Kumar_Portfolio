@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manjesh Kumar | Software Developer Portfolio</title>
+  <meta name="description" content="Professional software developer and backend developer portfolio of Manjesh Kumar.">
+  <meta name="keywords" content="Software Developer, Backend Developer, Python, Java, FastAPI, MySQL, Portfolio">
+  <meta name="author" content="Manjesh Kumar">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loader"><div class="spinner"></div></div>
+
+  <header id="header">
+    <div class="container">
+      <nav>
+        <div class="logo">Manjesh Kumar</div>
+        <div class="nav-links" id="navLinks">
+          <a href="#home" class="active">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#services">Services</a>
+          <a href="#resume">Resume</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-actions">
+          <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">◐</button>
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">Available for internships, freelance, and hackathons</div>
+          <h1>Manjesh Kumar</h1>
+          <div class="title"><span id="typing"></span></div>
+          <p>
+            I build scalable backend systems, REST APIs, database-driven applications,
+            and automation solutions using Python, Java, MySQL, and FastAPI.
+            Passionate about clean architecture, problem solving, and building impactful software.
+          </p>
+          <div class="hero-actions">
+            <a href="Manjesh_Kumar_CV.pdf" download class="btn btn-primary">
+              <i class="fas fa-download"></i> Download Resume
+            </a>
+            <a href="#contact" class="btn btn-outline">Contact Me</a>
+          </div>
+          <div class="socials">
+            <div class="socials">
+              <a href="https://github.com/Manjesh-kumar-mk" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://linkedin.com/in/your-profile" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="mailto:workwithmanjesh@gmail.com" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+              <a href="https://leetcode.com/u/Manjesh_kumar_mk/" target="_blank" aria-label="LeetCode">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.483 0a1.5 1.5 0 0 0-1.06.44L.44 12.423a1.5 1.5 0 0 0 0 2.12l4.017 4.017a1.5 1.5 0 1 0 2.121-2.12L3.621 13.483 13.483 3.62l3.956 3.956a1.5 1.5 0 1 0 2.121-2.12L14.543.44A1.5 1.5 0 0 0 13.483 0z"/>
+                  <path d="M8.5 12a1.5 1.5 0 0 0 1.5 1.5H23a1.5 1.5 0 0 0 0-3H10A1.5 1.5 0 0 0 8.5 12z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="profile-card glass">
+          <div class="avatar">
+            <img src="images/manjesh.png" alt="Manjesh Kumar">
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <h3 class="counter" data-target="10">2</h3>
+              <p>Projects</p>
+            </div>
+            <div class="stat">
+              <h3 class="counter" data-target="5">0</h3>
+              <p>Hackathons</p>
+            </div>
+            <div class="stat">
+              <h3 class="counter" data-target="300">250+</h3>
+              <p>DSA Problems</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>About Me</h2></div>
+      <div class="about-grid">
+        <div class="card glass">
+          <h3>Professional introduction</h3>
+          <p class="muted" style="margin-top:12px">
+            I am an aspiring software developer and backend engineer focused on Python,
+            Java, FastAPI, and database systems. I enjoy designing APIs, building backend
+            architectures, and solving real-world engineering problems.
+          </p>
+          <p class="muted" style="margin-top:14px">
+            My goal is to contribute to high-quality software products while continuously
+            improving my technical skills through projects, hackathons, and open-source learning.
+          </p>
+        </div>
+        <div class="card glass">
+          <h3>Career objective</h3>
+          <p class="muted" style="margin-top:12px">
+            To secure a software development or backend development internship where I can
+            build scalable applications, collaborate with engineering teams, and grow into
+            a strong backend engineer.
+          </p>
+          <Divider/>
+          <h3 style="margin-top:22px">Education</h3>
+          <p class="muted" style="margin-top:10px">
+            Bachelor&apos;s degree (Computer Science / Engineering track)
+          </p>
+          <h3 style="margin-top:22px">Interests</h3>
+          <p class="muted" style="margin-top:10px">
+            Backend development, system design, databases, FastAPI, AI-assisted applications,
+            cybersecurity fundamentals, and hackathons.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>Technical Skills</h2></div>
+      <div class="skills-grid">
+        <div class="skill"><div class="skill-head"><span>HTML</span><span>90%</span></div><div class="progress"><span data-width="90%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>CSS</span><span>80%</span></div><div class="progress"><span data-width="80%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>JavaScript</span><span>45%</span></div><div class="progress"><span data-width="45%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>Python</span><span>60%</span></div><div class="progress"><span data-width="60%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>Java</span><span>85%</span></div><div class="progress"><span data-width="85%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>MySQL</span><span>70%</span></div><div class="progress"><span data-width="70%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>FastAPI</span><span>80%</span></div><div class="progress"><span data-width="80%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>Git &amp; GitHub</span><span>85%</span></div><div class="progress"><span data-width="85%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>REST APIs</span><span>60%</span></div><div class="progress"><span data-width="60%"></span></div></div>
+        <div class="skill"><div class="skill-head"><span>DSA</span><span>78%</span></div><div class="progress"><span data-width="78%"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>Featured Projects</h2></div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="backend">Backend</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+        <button class="filter-btn" data-filter="ai">AI / ML</button>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="project glass" data-category="web">
+          <div class="project-image">💼</div>
+          <div class="project-content">
+            <h3>Portfolio Website</h3>
+            <p class="muted">Responsive developer portfolio with animations, filtering, and modern UI.</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+            <div class="project-actions"><a class="btn btn-outline" href="https://github.com/Manjesh-kumar-mk">GitHub</a><a class="btn btn-primary" href="https://manjesh-kumar-mk.github.io/portfolio/">Live Demo</a></div>
+          </div>
+        </div>
+
+        <div class="project glass" data-category="backend">
+          <div class="project-image">📊</div>
+          <div class="project-content">
+            <h3>Attendance Management System</h3>
+            <p class="muted">A backend-driven attendance platform with authentication, reporting, and analytics.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">FastAPI</span></div>
+            <div class="project-actions"><a class="btn btn-outline" href="#">GitHub</a><a class="btn btn-primary" href="#">Live Demo</a></div>
+          </div>
+        </div>
+
+        <div class="project glass" data-category="ai">
+          <div class="project-image">👁️</div>
+          <div class="project-content">
+            <h3>Face Recognition Classroom Attendance</h3>
+            <p class="muted">Automated attendance using face recognition and classroom entry monitoring.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">AI</span></div>
+            <div class="project-actions"><a class="btn btn-outline" href="#">GitHub</a><a class="btn btn-primary" href="#">Live Demo</a></div>
+          </div>
+        </div>
+
+        <div class="project glass" data-category="web">
+          <div class="project-image">📈</div>
+          <div class="project-content">
+            <h3>Student Analytics Dashboard</h3>
+            <p class="muted">Interactive dashboard for attendance trends, performance metrics, and reports.</p>
+            <div class="tags"><span class="tag">JavaScript</span><span class="tag">Charts</span><span class="tag">MySQL</span></div>
+            <div class="project-actions"><a class="btn btn-outline" href="#">GitHub</a><a class="btn btn-primary" href="#">Live Demo</a></div>
+          </div>
+        </div>
+
+        <div class="project glass" data-category="backend">
+          <div class="project-image">⚡</div>
+          <div class="project-content">
+            <h3>FastAPI Backend API</h3>
+            <p class="muted">RESTful API with JWT authentication, CRUD operations, and database integration.</p>
+            <div class="tags"><span class="tag">FastAPI</span><span class="tag">REST</span><span class="tag">JWT</span></div>
+            <div class="project-actions"><a class="btn btn-outline" href="#">GitHub</a><a class="btn btn-primary" href="#">Live Demo</a></div>
+          </div>
+        </div>
+
+        <div class="project glass" data-category="backend">
+          <div class="project-image">🏆</div>
+          <div class="project-content">
+            <h3>SIH Hackathon Project</h3>
+            <p class="muted">Smart classroom automation and student monitoring solution built for hackathon participation.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">IoT</span></div>
+            <div class="project-actions"><a class="btn btn-outline" href="#">GitHub</a><a class="btn btn-primary" href="#">Live Demo</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>Experience &amp; Achievements</h2></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Smart India Hackathon (SIH)</h3>
+          <p class="muted">Collaborated in a multidisciplinary team to develop an innovative attendance monitoring and student analytics solution, contributing to backend system planning, database design, and technical problem-solving under competitive hackathon conditions.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Hackathon participation</h3>
+          <p class="muted">Collaborated with cross-functional teams to design, develop, and deliver innovative technical projects within strict deadlines, demonstrating strong problem-solving, teamwork, and execution skills in high-pressure environments.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Technical Team Lead — Commenciana 2.0</h3>
+          <p class="muted">Led the technical team for Commenciana 2.0, coordinating technical operations, managing team responsibilities, and ensuring the smooth execution of technical activities throughout the event.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Technical certifications</h3>
+          <p class="muted">Python, Java, database systems, backend development, and web technologies.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Coding achievements</h3>
+          <p class="muted">Practicing DSA, SQL, backend development, and project-based learning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>Future Services</h2></div>
+      <div class="services-grid">
+        <div class="service glass"><div class="icon">🖥️</div><h3>Backend Development</h3><p class="muted">Scalable backend applications with clean architecture and database integration.</p></div>
+        <div class="service glass"><div class="icon">🔌</div><h3>API Development</h3><p class="muted">REST APIs with authentication, validation, and documentation.</p></div>
+        <div class="service glass"><div class="icon">🗄️</div><h3>Database Design</h3><p class="muted">MySQL schema design, optimization, and relational data modeling.</p></div>
+        <div class="service glass"><div class="icon">🤖</div><h3>Automation Scripts</h3><p class="muted">Python automation for productivity, data processing, and workflows.</p></div>
+        <div class="service glass"><div class="icon">🌐</div><h3>Web Development</h3><p class="muted">Responsive websites with modern UI and interactive JavaScript experiences.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>Resume</h2></div>
+      <div class="resume-grid">
+        <div class="card glass">
+          <h3>Download my CV</h3>
+          <p class="muted" style="margin:14px 0 24px">
+            Get a detailed overview of my technical skills, projects, education, and achievements.
+          </p>
+          <a href="Manjesh_Kumar_CV.pdf" download class="btn btn-primary">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+        </div>
+        <div class="card glass">
+          <h3>Technical growth timeline</h3>
+          <div class="timeline" style="margin-top:18px">
+            <div class="timeline-item"><h4>Programming foundations</h4><p class="muted">HTML, CSS, JavaScript, Python</p></div>
+            <div class="timeline-item"><h4>Backend development</h4><p class="muted">Java, MySQL, REST APIs,Python</p></div>
+            <div class="timeline-item"><h4>Advanced backend</h4><p class="muted">FastAPI, authentication, deployment, and project architecture</p></div>
+            <div class="timeline-item"><h4>Learning Spring Boot</h4><p class="muted">Spring / Spring Boot Frameworks</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>Testimonials</h2></div>
+      <div class="testimonials">
+        <div class="testimonial glass">
+          <div class="stars">★★★★★</div>
+          <p class="muted">“Manjesh demonstrated strong backend fundamentals and delivered a clean, well-structured API project.”</p>
+          <h4 style="margin-top:16px">Hackathon teammate</h4>
+        </div>
+        <div class="testimonial glass">
+          <div class="stars">★★★★★</div>
+          <p class="muted">“Excellent problem-solving approach and a strong willingness to learn new backend technologies.”</p>
+          <h4 style="margin-top:16px">Mentor</h4>
+        </div>
+        <div class="testimonial glass">
+          <div class="stars">★★★★★</div>
+          <p class="muted">“Reliable, collaborative, and focused on building practical software solutions.”</p>
+          <h4 style="margin-top:16px">Project collaborator</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <div class="container">
+      <div class="section-title"><span></span><h2>Contact Me</h2></div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="info glass"><div>📧</div><div><h4>Email</h4><p class="muted">workwithmanjesh@gmail.com</p></div></div>
+          <div class="info glass"><div>📱</div><div><h4>Phone</h4><p class="muted">+91-7068438823</p></div></div>
+          <div class="info glass"><div>📍</div><div><h4>Location</h4><p class="muted">Uttar Pradesh, India</p></div></div>
+          <div class="socials">
+            <div class="socials">
+              <a href="https://github.com/Manjesh-kumar-mk" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/manjesh-kumar-208190381/" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="mailto:workwithmanjesh@gmail.com" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+              <a href="https://leetcode.com/u/Manjesh_kumar_mk/" target="_blank" aria-label="LeetCode">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.483 0a1.5 1.5 0 0 0-1.06.44L.44 12.423a1.5 1.5 0 0 0 0 2.12l4.017 4.017a1.5 1.5 0 1 0 2.121-2.12L3.621 13.483 13.483 3.62l3.956 3.956a1.5 1.5 0 1 0 2.121-2.12L14.543.44A1.5 1.5 0 0 0 13.483 0z"/>
+                  <path d="M8.5 12a1.5 1.5 0 0 0 1.5 1.5H23a1.5 1.5 0 0 0 0-3H10A1.5 1.5 0 0 0 8.5 12z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass">
+          <form id="contactForm">
+            <div>
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required>
+            </div>
+          
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+          
+            <div>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+            </div>
+          
+            <div>
+              <label for="otp">OTP</label>
+              <input id="otp" name="otp" type="text" placeholder="Enter 6-digit OTP" maxlength="6" required>
+            </div>
+          
+            <button type="button" id="sendOtpBtn" class="btn btn-outline">
+              Send OTP
+            </button>
+          
+            <button type="submit" class="btn btn-primary">
+              Verify OTP & Send
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <p>© 2026 Manjesh Kumar. All rights reserved.</p>
+      <div class="quick-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top">↑</button>
+
+  <div id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupMessage">
+    <div class="popup-content">
+      <p id="popupMessage"></p>
+      <button id="popupClose" type="button">OK</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
