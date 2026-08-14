@@ -9,9 +9,6 @@ A full-stack web project built using **HTML, CSS, JavaScript, and FastAPI**.
 * API integration
 * Modern UI
 
-## Run locally
+## Portfolio link
 
-```bash
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
+https://manjesh-kumar-portfolio.onrender.com/
