@@ -1,6 +1,7 @@
-fastapi
-uvicorn
-python-dotenv
-aiosmtplib
-jinja2
-pydantic[email]
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+jinja2==3.1.6
+python-dotenv==1.1.1
+pydantic[email]==2.11.7
+httpx==0.28.1
+aiosmtplib==4.0.2
