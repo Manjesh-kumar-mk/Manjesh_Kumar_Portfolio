@@ -75,7 +75,7 @@ async def send_email(subject: str, body: str, user_email: str):
         email,
         hostname="smtp.gmail.com",
         port=465,
-        start_tls=True,
+        use_tls=True,
         username=SMTP_EMAIL,
         password=SMTP_PASSWORD,
         timeout=10,
