@@ -1,4 +1,5 @@
-    const header=document.getElementById('header');
+   console.log('script.js loaded');
+   const header=document.getElementById('header');
    const backToTop=document.getElementById('backToTop');
     const menuBtn=document.getElementById('menuBtn');
     const navLinks=document.getElementById('navLinks');
@@ -115,7 +116,6 @@
 // ===============================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('script loaded');
     const form = document.getElementById('contactForm');
     const sendMessageBtn = document.getElementById('sendMessageBtn');
 
