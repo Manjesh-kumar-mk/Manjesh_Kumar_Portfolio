@@ -117,24 +117,21 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contactForm');
-    const sendMessageBtn = document.getElementById('sendMessageBtn');
 
-    if (!form || !sendMessageBtn) {
-        console.error('contactForm or sendMessageBtn not found');
+    if (!form) {
+        console.error('contactForm not found');
         return;
     }
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        console.log('Form intercepted');
 
         const data = {
             name: document.getElementById('name').value.trim(),
             email: document.getElementById('email').value.trim(),
             message: document.getElementById('message').value.trim()
         };
-
-        sendMessageBtn.disabled = true;
-        sendMessageBtn.textContent = 'Sending...';
 
         try {
             const response = await fetch('/send-message', {
@@ -146,20 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const result = await response.json();
+            alert(result.message || result.detail);
 
-            if (response.ok) {
-                showPopup(result.message || 'Message sent successfully!');
-                form.reset();
-            } else {
-                showPopup(result.detail || 'Failed to send message.');
-            }
-
-        } catch (error) {
-            console.error(error);
-            showPopup('Server connection failed.');
-        } finally {
-            sendMessageBtn.disabled = false;
-            sendMessageBtn.textContent = 'Send Message';
+        } catch (err) {
+            console.error(err);
+            alert('Request failed');
         }
     });
 });
