@@ -115,6 +115,7 @@
 // ===============================
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('script loaded');
     const form = document.getElementById('contactForm');
     const sendMessageBtn = document.getElementById('sendMessageBtn');
 
