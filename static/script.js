@@ -110,134 +110,106 @@
       });
     });
 
-    //  Functionality of Contact
+    // ===============================
+// Contact form (no OTP)
+// ===============================
 
-    // Contact form with OTP verification
+const form = document.getElementById('contactForm');
+const sendMessageBtn = document.getElementById('sendMessageBtn');
 
-    const form = document.getElementById('contactForm');
-    const sendOtpBtn = document.getElementById('sendOtpBtn');
-    
-    // Send OTP
-    sendOtpBtn.addEventListener('click', async () => {
-      const name = document.getElementById('name');
-      const email = document.getElementById('email');
-      const message = document.getElementById('message');
-      
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      
-      if (name.value.trim().length < 2) {
-          showPopup('Please enter a valid name.');
-          return;
-      }
-    
-      if (!emailPattern.test(email.value.trim())) {
-          showPopup('Please enter a valid email address.');
-          return;
-      }
-    
-      if (message.value.trim().length < 10) {
-          showPopup('Message must be at least 10 characters.');
-          return;
-      }
-    
-      const data = {
-          name: name.value.trim(),
-          email: email.value.trim(),
-          message: message.value.trim()
-      };
-    
-      // Disable button while sending
-      sendOtpBtn.disabled = true;
-      sendOtpBtn.textContent = 'Sending...';
-      showPopup('Sending OTP, please wait...');
-    
-      // Create a timeout
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000);
-    
-      try {
-          const response = await fetch('/send-otp', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(data),
-              signal: controller.signal
-          });
-        
-          clearTimeout(timeout);
-        
-          const result = await response.json();
-        
-          if (response.ok) {
-              showPopup(result.message || 'OTP has been sent successfully to your email.');
-          } else {
-              showPopup(result.detail || 'Unable to send OTP.');
-          }
-        
-      } catch (error) {
-          clearTimeout(timeout);
-      
-          if (error.name === 'AbortError') {
-              showPopup('Request timed out. Please try again.');
-          } else {
-              console.error(error);
-              showPopup('Server connection failed. Please try again later.');
-          }
-        
-      } finally {
-          sendOtpBtn.disabled = false;
-          sendOtpBtn.textContent = 'Send OTP';
-      }
-    });  
-    
-    // Verify OTP and send message
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-    
-        const email = document.getElementById('email').value.trim();
-        const otp = document.getElementById('otp').value.trim();
-    
-        if (otp.length !== 6) {
-          showPopup('Please enter a valid 6-digit OTP.');
-          return;
-        }
-    
-        try {
-            const response = await fetch('/verify-otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    otp: otp
-                })
-            });
-    
-            const result = await response.json();
-    
-            if (response.ok) {
-              showPopup('Your message has been verified and sent successfully.');
-              form.reset();
-            } else {
-              showPopup(result.detail || 'Invalid OTP. Please enter the correct OTP.');
-            }
-        } catch (error) {
-          console.error(error);
-          showPopup('Server connection failed. Please try again later.');
-        }
-    });
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    const popup = document.getElementById('popup');
-    const popupMessage = document.getElementById('popupMessage');
-    const popupClose = document.getElementById('popupClose');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
 
-    function showPopup(message) {
-      popupMessage.textContent = message;
-      popup.classList.remove('hidden');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Validate name
+    if (name.value.trim().length < 2) {
+        showPopup('Please enter a valid name.');
+        return;
     }
 
-    popupClose.addEventListener('click', () => {
-      popup.classList.add('hidden');
-    });
+    // Validate email
+    if (!emailPattern.test(email.value.trim())) {
+        showPopup('Please enter a valid email address.');
+        return;
+    }
+
+    // Validate message
+    if (message.value.trim().length < 10) {
+        showPopup('Message must be at least 10 characters.');
+        return;
+    }
+
+    const data = {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        message: message.value.trim()
+    };
+
+    // Disable button while sending
+    sendMessageBtn.disabled = true;
+    sendMessageBtn.textContent = 'Sending...';
+
+    // Create timeout
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+
+    try {
+        const API_BASE = "https://manjesh-kumar-portfolio.onrender.com";
+
+        const response = await fetch(`${API_BASE}/send-message`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeout);
+
+        const result = await response.json();
+
+        if (response.ok) {
+            showPopup(result.message || 'Message sent successfully!');
+            form.reset();
+        } else {
+            showPopup(result.detail || 'Failed to send message.');
+        }
+
+    } catch (error) {
+        clearTimeout(timeout);
+
+        if (error.name === 'AbortError') {
+            showPopup('Request timed out. Please try again.');
+        } else {
+            console.error(error);
+            showPopup('Server connection failed. Please try again later.');
+        }
+
+    } finally {
+        sendMessageBtn.disabled = false;
+        sendMessageBtn.textContent = 'Send Message';
+    }
+});
+
+// ===============================
+// Popup
+// ===============================
+
+const popup = document.getElementById('popup');
+const popupMessage = document.getElementById('popupMessage');
+const popupClose = document.getElementById('popupClose');
+
+function showPopup(message) {
+    popupMessage.textContent = message;
+    popup.classList.remove('hidden');
+}
+
+popupClose.addEventListener('click', () => {
+    popup.classList.add('hidden');
+});
