@@ -78,6 +78,7 @@ async def send_email(subject: str, body: str, user_email: str):
         start_tls=True,
         username=SMTP_EMAIL,
         password=SMTP_PASSWORD,
+        timeout=10,
     )
 
 # Contact endpoint (no OTP)
@@ -104,5 +105,5 @@ Message:
         print("SMTP ERROR:", repr(e))
         raise HTTPException(
             status_code=500,
-            detail="Failed to send message"
+            detail=str(e)
         )
