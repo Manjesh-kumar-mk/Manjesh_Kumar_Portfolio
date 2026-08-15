@@ -107,3 +107,19 @@ Message:
             status_code=500,
             detail=str(e)
         )
+
+
+@app.get("/smtp-test")
+async def smtp_test():
+    try:
+        smtp = aiosmtplib.SMTP(
+            hostname="smtp.gmail.com",
+            port=465,
+            use_tls=True,
+            timeout=10,
+        )
+        await smtp.connect()
+        await smtp.quit()
+        return {"status": "connected"}
+    except Exception as e:
+        return {"error": str(e)}
