@@ -114,87 +114,53 @@
 // Contact form (no OTP)
 // ===============================
 
-const form = document.getElementById('contactForm');
-const sendMessageBtn = document.getElementById('sendMessageBtn');
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contactForm');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('name');
-    const email = document.getElementById('email');
-    const message = document.getElementById('message');
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // Validate name
-    if (name.value.trim().length < 2) {
-        showPopup('Please enter a valid name.');
+    if (!form || !sendMessageBtn) {
+        console.error('contactForm or sendMessageBtn not found');
         return;
     }
 
-    // Validate email
-    if (!emailPattern.test(email.value.trim())) {
-        showPopup('Please enter a valid email address.');
-        return;
-    }
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    // Validate message
-    if (message.value.trim().length < 10) {
-        showPopup('Message must be at least 10 characters.');
-        return;
-    }
+        const data = {
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            message: document.getElementById('message').value.trim()
+        };
 
-    const data = {
-        name: name.value.trim(),
-        email: email.value.trim(),
-        message: message.value.trim()
-    };
+        sendMessageBtn.disabled = true;
+        sendMessageBtn.textContent = 'Sending...';
 
-    // Disable button while sending
-    sendMessageBtn.disabled = true;
-    sendMessageBtn.textContent = 'Sending...';
+        try {
+            const response = await fetch('/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-    // Create timeout
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+            const result = await response.json();
 
-    try {
-        const API_BASE = "https://manjesh-kumar-portfolio.onrender.com";
+            if (response.ok) {
+                showPopup(result.message || 'Message sent successfully!');
+                form.reset();
+            } else {
+                showPopup(result.detail || 'Failed to send message.');
+            }
 
-        const response = await fetch(`${API_BASE}/send-message`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data),
-          signal: controller.signal
-        });
-
-        clearTimeout(timeout);
-
-        const result = await response.json();
-
-        if (response.ok) {
-            showPopup(result.message || 'Message sent successfully!');
-            form.reset();
-        } else {
-            showPopup(result.detail || 'Failed to send message.');
-        }
-
-    } catch (error) {
-        clearTimeout(timeout);
-
-        if (error.name === 'AbortError') {
-            showPopup('Request timed out. Please try again.');
-        } else {
+        } catch (error) {
             console.error(error);
-            showPopup('Server connection failed. Please try again later.');
+            showPopup('Server connection failed.');
+        } finally {
+            sendMessageBtn.disabled = false;
+            sendMessageBtn.textContent = 'Send Message';
         }
-
-    } finally {
-        sendMessageBtn.disabled = false;
-        sendMessageBtn.textContent = 'Send Message';
-    }
+    });
 });
 
 // ===============================
